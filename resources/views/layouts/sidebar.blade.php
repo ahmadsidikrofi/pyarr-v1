@@ -38,7 +38,7 @@
                     <span class="hide-menu">AUTH</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="belum-ada" aria-expanded="false">
+                    <a class="sidebar-link" href="/login" aria-expanded="false">
                         <span>
                             <i class="ti ti-login"></i>
                         </span>
@@ -51,6 +51,14 @@
                             <i class="ti ti-user-plus"></i>
                         </span>
                         <span class="hide-menu">Register</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/lupa-password" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-user-plus"></i>
+                        </span>
+                        <span class="hide-menu">Lupa Password</span>
                     </a>
                 </li>
             </ul>

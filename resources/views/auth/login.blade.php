@@ -6,7 +6,7 @@
             class="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center">
             <div class="d-flex align-items-center justify-content-center w-100">
                 <div class="row justify-content-center w-100">
-                    <div class="col-md-8 col-lg-6 col-xxl-3">
+                    <div class="col-md-8 col-lg-6 col-xl-5 ">
                         <div class="card mb-0">
                             <div class="card-body">
                                 <div class="d-flex justify-content-center my-4 gap-1 align-items-center">
@@ -20,29 +20,21 @@
                                     <span class="fw-bold fs-4">Pyarr</span>
                                 </div>
                                 <p class="text-center">Sewa piring dan gelas sesuai kebutuhan</p>
-                                <form action="/register/store" method="post">
+                                <form action="/login/store" method="post">
                                     @csrf
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Email</label>
                                         <input type="email" name="email" class="form-control" id="email"
                                             aria-describedby="emailHelp">
+
+                                        @if (session('wrongAuth'))
+                                            <small>
+                                                <strong class="text-danger mb-5">{{ session('wrongAuth') }}</strong>
+                                                <br><br>
+                                            </small>
+                                        @endif
                                     </div>
-                                    @if (session('error'))
-                                        <small>
-                                            <strong class="text-danger mb-5">{{ session('error') }}</strong>
-                                            <br><br>
-                                        </small>
-                                    @endif
-                                    <div class="mb-3">
-                                        <label for="username" class="form-label">Username</label>
-                                        <input type="text" name="username" class="form-control" id="exampleInputtext1"
-                                            aria-describedby="textHelp">
-                                    </div>
-                                    @error("name")
-                                        <span class="text-danger" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+
                                     <div class="mb-4">
                                         <label for="password" class="form-label">Password</label>
                                         <input name="password" type="password" class="form-control" id="password">
@@ -54,15 +46,15 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="mb-4">
-                                        <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
-                                        <input name="password_confirmation" type="password" class="form-control" id="password_confirmation">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign Up</button>
+                                    <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign In</button>
                                 </form>
                                 <div class="d-flex align-items-center justify-content-center">
-                                    <p class="fs-4 mb-0 fw-bold">Already have an Account?</p>
-                                    <a class="text-primary fw-bold ms-2" href="/login">Sign In</a>
+                                    <p class="fs-4 mb-0 fw-bold">Belum punya akun?</p>
+                                    <a class="text-primary fw-bold ms-2" href="/register">Sign Up</a>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <p class="fs-4 mb-0 fw-bold">Kamu lupa password?</p>
+                                    <a class="text-primary fw-bold ms-2" href="/lupa-password">Ubah password</a>
                                 </div>
                             </div>
                         </div>

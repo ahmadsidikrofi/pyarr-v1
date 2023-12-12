@@ -23,3 +23,17 @@
 | 10  | Perbarui Unit  |
 | 11  | Mengubah Status Unit  |
 | 12  | Mencetak Riwayat Peminjaman  |
+
+## Daftar Fitur - Customer
+| No  | Nama Fitur |
+| ------------- | ------------- |
+| 1  | Meminjam Item (max: 2) |
+| 2  | Melihat unit  |
+
+## Daftar Fitur - General
+| No  | Nama Fitur |
+| ------------- | ------------- |
+| 1  | Register |
+| 2  | Login |
+| 3  | Logout  |
+| 4  | Update Profile  |

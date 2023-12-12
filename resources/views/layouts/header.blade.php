@@ -24,9 +24,13 @@
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                         <div class="message-body">
                             <h4 class="px-3 fw-bold fs-5">
-                                {{ Str::length(Auth::user()->username) > 10 ?
-                                    Str::substr(Auth::user()->username, 0, 10) . "..." : Auth::user()->username
-                                }}
+                                @auth
+                                    {{ Str::length(Auth::user()->username) > 10 ?
+                                        Str::substr(Auth::user()->username, 0, 10) . "..." : Auth::user()->username
+                                    }}
+                                @else
+                                    Guest
+                                @endauth
                             </h4>
                             <a href="/profile" class="d-flex align-items-center gap-2 dropdown-item">
                                 <i class="ti ti-user fs-6"></i>

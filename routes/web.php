@@ -36,6 +36,8 @@ Route::get('/logout', [AuthController::class, "logout"]);
 Route::get('/lupa-password', [AuthController::class, "lupaPassword_page"]);
 Route::put('/lupa-password/store', [AuthController::class, "lupaPassword_store"]);
 
+Route::delete('/delete-user/{id}', [AuthController::class, 'destroy']);
+
 // LISTUSER
 Route::get('/ListUser', [dashboardAdminController::class, "ListUser"])->name('admin.listuser');
 

@@ -10,23 +10,18 @@
     <link rel="stylesheet" href="../assets/css/styles.min.css" />
     <link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
-    <!-- Bootstrap CSS -->
-
-
-    <!-- DataTables CSS with Bootstrap integration -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
     <style>
         /* Contoh CSS kustom untuk DataTables */
         #myTable_wrapper {
             padding: 20px;
-            /* Atur padding wrapper */
         }
 
         #myTable_filter label {
             margin-bottom: 10px;
-            /* Atur margin bottom untuk elemen pencarian label */
         }
     </style>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body>
@@ -34,14 +29,13 @@
         data-sidebar-position="fixed" data-header-position="fixed">
         <!-- Sidebar Start -->
         @include('layouts.sidebar')
-        <!--  Sidebar End -->
+        <!-- Sidebar End -->
 
-
-        <!--  Main wrapper -->
+        <!-- Main wrapper -->
         <div class="body-wrapper">
-            <!--  Header Start -->
+            <!-- Header Start -->
             @include('layouts.header')
-            <!--  Header End -->
+            <!-- Header End -->
             <div class="container-fluid">
                 <div class="card shadow mb-4">
                     <div class="card-body ">
@@ -72,9 +66,10 @@
                                         </td>
                                         <td>
                                             <a href="/edit-user/{{ $datauser->id }}"
-                                                class="text-decoration-none">Edit</a>
-                                            <a href="/delete-user/{{ $datauser->id }}"
-                                                class="text-decoration-none">Delete</a>
+                                                class="btn btn-primary text-white text-decoration-none">Edit</a>
+                                            <button class="btn btn-danger" onclick="confirmDelete({{ $datauser->id }})">
+                                                <i class="fas fa-trash-alt"></i>Delete
+                                            </button>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -90,32 +85,71 @@
         </div>
     </div>
 
-
     <!-- Include jQuery and DataTables -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-
-    <!-- Include Bootstrap JavaScript -->
-
-
-    <script>
-        $(document).ready( function () {
-        $('#myTable').DataTable({
-            responsive: true, // Aktifkan responsif
-            lengthMenu: [10, 25, 50, 100], // Opsi tampilan entri
-            searching: true // Aktifkan atau nonaktifkan pencarian
-            // Tambahan konfigurasi lainnya
-        });
-    });
-    </script>
-
     <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/sidebarmenu.js"></script>
     <script src="../assets/js/app.min.js"></script>
-    <script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
     <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
     <script src="../assets/js/dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                responsive: true,
+                lengthMenu: [10, 25, 50, 100],
+                searching: true
+            });
+        });
+    
+        function confirmDelete(datauserId) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You will not be able to recover this user!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel plx!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deleteMyletter(datauserId);
+                } else {
+                    Swal.fire("Cancelled", "User is safe :)", "info");
+                }
+            });
+        }
+    
+        function deleteMyletter(datauserId) {
+            $.ajax({
+                url: '/delete-user/' + datauserId,
+                type: 'DELETE',
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Adjusted to use a meta tag for CSRF token
+                },
+                success: function(response) {
+                    console.log(response); // Log the response
+                    if (response.success) { // Adjusted to check response.success directly
+                        Swal.fire("Deleted!", response.message, "success")
+                        .then(() => {
+                            location.reload(); // Reload the page
+                        });
+                    } else {
+                        Swal.fire("Error", response.message, "error");
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error response:", xhr.responseText);
+                    console.error("Status:", status);
+                    console.error("Error:", error);
+                    Swal.fire("Error", "Something went wrong. Please try again later.", "error");
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

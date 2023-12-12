@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\dashboardAdminController;
 use App\Http\Controllers\ProfileController;
 use App\Models\AuthModel;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PeminjamanPiringController;
 use App\Http\Controllers\PiringController;

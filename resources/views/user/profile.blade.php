@@ -135,23 +135,7 @@
                                                 echo $sinopsis;
                                             }
                                             ?>
-                                        </div>
-                                        <form action="/Readteracy/return-book" method="post">
-                                            @csrf
-                                            <input type="hidden" value="{{ $borrow->id }}" name="id">
-                                            <input type="hidden" value="{{ $borrow->user_id }}" name="user_id">
-                                            <input type="hidden" value="{{ $borrow->book_id }}" name="book_id">
-                                            @if ($borrow->tipe === 'Fisik' && $borrow->status === 'dikembalikan')
-                                                <a href="/Readteracy/detail/buku/{{ $borrow->book_id }}" class="btn btn-primary btn-sm mt-3">Pinjam lagi</a>
-                                            @elseif ($borrow->tipe === 'Fisik')
-                                                <button class="btn btn-sm btn-dark mt-3" name="return_book">Return book</button>
-                                            @endif
-                                        </form>
-                                    </div>
-                                    <hr>
-                                    @endforeach
-                                    <span>click here to see more <a href="/Readteracy/history/borrowed">my libraries</a></span>
-                            @endif --}}
+
                         </div>
                     </div>
                 </div>

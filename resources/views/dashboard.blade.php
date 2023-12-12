@@ -226,7 +226,7 @@
                                                 </td>
                                                 <td class="border-bottom-0">
                                                     <div class="d-flex align-items-center gap-2">
-                                                        <img src="../assets/images/profile/user-1.jpg" alt="" width="35" height="35"
+                                                        <img src="/assets/images/profile/{{ $user->profile_pic }}" alt="" width="35" height="35"
                                                         class="rounded-circle">
                                                     </div>
                                                 </td>

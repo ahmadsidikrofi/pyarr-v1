@@ -14,42 +14,47 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="card-title fw-semibold mb-4">Tambah Piring</h5>
+                                <h5 class="card-title fw-semibold mb-4">Edit Piring</h5>
                                 <a class="btn btn-info" href="/">Kembali</a>
                             </div>
                             <div class="card">
-                                <div class="card-body">
+                                <div class="card-header col-sm-3">
+                                    <img src="/assets/images/{{ $detailPiring->image }}" width="200" height="200" alt="">
+                                </div>
+                                <div class="card-body col-sm-7">
                                     <div class="mb-3">
-                                        <form action="/tambah-piring/store" method="post" enctype="multipart/form-data">
+                                        <form action="/pinjam-piring/{{ $detailPiring->slug }}" method="post" enctype="multipart/form-data">
                                             @csrf
+                                            <input type="hidden" name="piring_catalogue_id" value="{{ $detailPiring->piring_catalogue_id }}">
+                                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                             <div class="mb-3">
-                                                <label class="mb-3 text-primary">Nama Piring Baru</label>
-                                                <input type="text" class="form-control" name="nama_piring">
+                                                <label class="mb-3 text-primary">Ubah nama piring</label>
+                                                <input type="text" class="form-control" name="nama_piring" readonly value="{{ $detailPiring->nama_piring }}">
                                             </div>
 
                                             <div class="mb-3">
                                                 <label class="mb-3 text-primary">Deskripsi piring</label>
-                                                <input type="text" class="form-control" name="deskripsi_piring">
+                                                <input type="text" class="form-control" name="deskripsi_piring" readonly value="{{ $detailPiring->deskripsi_piring }}">
                                             </div>
                                             <div class="mb-3">
                                                 <label class="mb-3 text-primary">Kategori bahan</label>
-                                                <select class="form-control multiple-category" name="category[]" multiple="multiple">
-                                                    @foreach ($categories as $category)
-                                                        <option value="{{ $category->id }}">{{ $category->jenis_bahan }}</option>
+                                                <h3 class="text-dark fs-4">
+                                                    @foreach ( $detailPiring->categories as $currentCategory)
+                                                        {{ $currentCategory->jenis_bahan }}
                                                     @endforeach
-                                                </select>
+                                                </h3>
                                             </div>
                                             <div class="mb-4">
                                                 <label class="mb-3 text-primary">Harga sewa</label>
-                                                <input type="text" class="form-control" name="harga_sewa">
+                                                <input type="text" class="form-control" name="harga_sewa" readonly value="{{ $detailPiring->harga_sewa }}">
                                             </div>
 
-                                            <div class="mb-3 mt-5">
-                                                <label class="mb-3 text-primary">Foto piring</label>
-                                                <input type="file" class="form-control" name="image">
-                                            </div>
-
-                                            <button class="btn btn-success btn-md my-4" type="submit">Simpan Piring Baru</button>
+                                            <p class="p-2 bg-primary text-white fw-bold rounded-3">Piring terpinjam : {{ $totalPinjam }}</p>
+                                            @if ($totalPinjam >= 2)
+                                                <button class="btn btn-success btn-md" disabled type="submit">Pinjam sekarang</button>
+                                            @else
+                                            <button class="btn btn-success btn-md" type="submit">Pinjam sekarang</button>
+                                            @endif
                                         </form>
                                     </div>
                                 </div>
@@ -68,9 +73,4 @@
         $('.multiple-category').select2();
     });
 </script>
-{{-- <script>
-    jQuery(document).ready(function($) {
-        $('.multiple-category').select2();
-    });
-</script> --}}
 @endsection

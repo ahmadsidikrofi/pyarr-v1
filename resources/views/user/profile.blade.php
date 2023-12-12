@@ -100,9 +100,9 @@
                                 <div class="d-flex justify-content-center gap-1">
                                     <p class="text-muted">
                                         @if (Auth::user()->is_admin === 0)
-                                        <p class="text-muted mb-4">Member</p>
+                                            <p class="text-muted mb-4">Member</p>
                                         @else
-                                        <p class="text-muted mb-4">Admin</p>
+                                            <p class="text-muted mb-4">Admin</p>
                                         @endif
                                     </p>
                                     <span class="fw-semibold" style="color: #711DB0">{{ Auth::user()->gender }}</span>

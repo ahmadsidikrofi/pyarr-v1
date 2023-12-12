@@ -21,7 +21,18 @@ class CategoryController extends Controller
     public function createCategoriPage_store(Request $request)
     {
         CategoryModel::create($request->all());
-        return redirect('/show-category');
+        $categoryPiring = CategoryModel::where('category_id', $request->category_id);
+        
+        $categoryData = $categoryPiring->first();
+        $categoryID = $categoryData->id;
+        $categoryData->category_id = $categoryID;
+
+        if ($categoryData) {
+            $categoryData->save();
+        } else {
+            dd("data tidak ditemukan");
+        }
+        return redirect()->back();
     }
 
     public function edit_page($slug)
@@ -33,6 +44,7 @@ class CategoryController extends Controller
     {
         $editKategori = CategoryModel::where('slug', $slug)->first();
         $editKategori->update($request->all());
+
         return redirect('/show-category');
     }
 

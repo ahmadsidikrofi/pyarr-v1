@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('piring_catalogue', function (Blueprint $table) {
+        Schema::create('peminjaman_piring', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('peminjaman_id')->nullable();
             $table->unsignedBigInteger('piring_catalogue_id')->nullable();
-            $table->string('nama_piring');
-            $table->string('slug', 255)->nullable();
-            $table->string('deskripsi_piring');
-            $table->integer('harga_sewa')->default(5000);
-            $table->string('image')->nullable();
-            $table->string('status')->default('in stock');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->string('status')->default("in stock");
+            $table->date('rent_date');
+            $table->date('return_date');
+            $table->date('actual_return_date')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('piring_catalogue');
+        Schema::dropIfExists('peminjaman_piring');
     }
 };

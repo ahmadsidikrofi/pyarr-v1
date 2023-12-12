@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('category', function (Blueprint $table) {
+        Schema::create('piring_category', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('piring_catalogue_id')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
-            $table->string('jenis_bahan');
-            $table->string('slug', 255)->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('category');
+        Schema::dropIfExists('piring_category');
     }
 };

@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('password');
             $table->string('alamat')->nullable();
             $table->string('no_hp')->nullable();
-            $table->enum('gender', ["pria", "wanita"])->default("pria");
+            $table->enum('gender', ["Pria", "Wanita"])->default("Pria");
             $table->string('profile_pic')->nullable();
-            $table->boolean('is_admin')->default(false);
+            $table->boolean('is_admin')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });

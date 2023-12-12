@@ -14,26 +14,33 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="card-title fw-semibold mb-4">Tambah Piring</h5>
+                                <h5 class="card-title fw-semibold mb-4">Edit Piring</h5>
                                 <a class="btn btn-info" href="/">Kembali</a>
                             </div>
                             <div class="card">
                                 <div class="card-body">
                                     <div class="mb-3">
-                                        <form action="/tambah-piring/store" method="post" enctype="multipart/form-data">
+                                        <form action="/edit-piring/{{ $editPiring->slug }}/store" method="post" enctype="multipart/form-data">
+                                            @method('put')
                                             @csrf
                                             <div class="mb-3">
-                                                <label class="mb-3 text-primary">Nama Piring Baru</label>
-                                                <input type="text" class="form-control" name="nama_piring">
+                                                <label class="mb-3 text-primary">Ubah nama piring</label>
+                                                <input type="text" class="form-control" name="nama_piring" value="{{ $editPiring->nama_piring }}">
                                             </div>
 
                                             <div class="mb-3">
                                                 <label class="mb-3 text-primary">Deskripsi piring</label>
-                                                <input type="text" class="form-control" name="deskripsi_piring">
+                                                <input type="text" class="form-control" name="deskripsi_piring" value="{{ $editPiring->deskripsi_piring }}">
                                             </div>
                                             <div class="mb-3">
                                                 <label class="mb-3 text-primary">Kategori bahan</label>
                                                 <select class="form-control multiple-category" name="category[]" multiple="multiple">
+                                                    <option value="" disabled >
+                                                        Current Category:
+                                                        @foreach ( $editPiring->categories as $currentCategory)
+                                                            {{ $currentCategory->jenis_bahan }}
+                                                        @endforeach
+                                                    </option>
                                                     @foreach ($categories as $category)
                                                         <option value="{{ $category->id }}">{{ $category->jenis_bahan }}</option>
                                                     @endforeach
@@ -41,7 +48,7 @@
                                             </div>
                                             <div class="mb-4">
                                                 <label class="mb-3 text-primary">Harga sewa</label>
-                                                <input type="text" class="form-control" name="harga_sewa">
+                                                <input type="text" class="form-control" name="harga_sewa" value="{{ $editPiring->harga_sewa }}">
                                             </div>
 
                                             <div class="mb-3 mt-5">
@@ -49,7 +56,7 @@
                                                 <input type="file" class="form-control" name="image">
                                             </div>
 
-                                            <button class="btn btn-success btn-md my-4" type="submit">Simpan Piring Baru</button>
+                                            <button class="btn btn-success btn-md my-4" type="submit">Simpan perubahan piring</button>
                                         </form>
                                     </div>
                                 </div>
@@ -68,9 +75,4 @@
         $('.multiple-category').select2();
     });
 </script>
-{{-- <script>
-    jQuery(document).ready(function($) {
-        $('.multiple-category').select2();
-    });
-</script> --}}
 @endsection

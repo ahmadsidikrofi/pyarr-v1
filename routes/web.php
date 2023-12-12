@@ -4,6 +4,7 @@ use App\Models\AuthModel;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PiringController;
 use App\Http\Controllers\ProfileController;
 
 /*
@@ -22,7 +23,6 @@ Route::get('/', function () {
     return view('dashboard', compact(["allUsers"]));
 })->middleware('auth');
 
-
 // Auth
 Route::get('/register', [AuthController::class, "register_page"]);
 Route::post('/register/store', [AuthController::class, "register_store"]);
@@ -37,7 +37,6 @@ Route::get('/profile', [ProfileController::class, "profilePage"])->middleware('a
 Route::put('/profile/update', [ProfileController::class, "profileUpdate_store"]);
 Route::post('/profile/{id}/profile-picture', [ProfileController::class, "profileUpdate_pic"]);
 
-
 // Kategori
 Route::get('/show-category', [CategoryController::class, "categoryPage"]);
 Route::get('/tambah-kategori', [CategoryController::class, "createCategoriPage"]);
@@ -45,3 +44,6 @@ Route::post('/tambah-kategori/store', [CategoryController::class, "createCategor
 Route::get('/delete/kategori/{slug}', [CategoryController::class, "delete_store"]);
 Route::get('/edit-kategori/{slug}', [CategoryController::class, "edit_page"]);
 Route::put('/edit-kategori/{slug}/store', [CategoryController::class, "editPage_store"]);
+
+// Piring
+Route::get('/tambah-piring', [PiringController::class, "createPiring_page"]);

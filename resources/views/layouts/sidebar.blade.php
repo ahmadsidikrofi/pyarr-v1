@@ -35,7 +35,7 @@
                 </li>
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                    <span class="hide-menu">Kategori piring</span>
+                    <span class="hide-menu">Piring</span>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/show-category" aria-expanded="false">
@@ -43,6 +43,14 @@
                             <i class="ti ti-plus"></i>
                         </span>
                         <span class="hide-menu">Tambah kategori</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/tambah-piring" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-bowl"></i>
+                        </span>
+                        <span class="hide-menu">Tambah Piring</span>
                     </a>
                 </li>
                 <li class="nav-small-cap">

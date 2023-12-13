@@ -37,3 +37,7 @@
 | 2  | Login |
 | 3  | Logout  |
 | 4  | Update Profile  |
+
+## Skema Database
+![schema_db_pyarr](https://github.com/ahmadsidikrofi/readteracy-v1/assets/88192138/9b61a018-05d1-412b-8de7-f7a0701f0e37)
+

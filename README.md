@@ -1,9 +1,8 @@
+## Logo
 <p align="center">
-    
-
-</p>
-![logo2](https://github.com/ahmadsidikrofi/pyarr-v1/assets/88192138/502b1566-2d18-4747-a812-94a6e81ba54d)
-
+    ![logo2](https://github.com/ahmadsidikrofi/pyarr-v1/assets/88192138/502b1566-2d18-4747-a812-94a6e81ba54d)
+</p> 
+[<img alt="alt_text" width="40px" src="images/image.PNG" />](https://www.google.com/)
 ## PYARR
 
 ## Anggota Kelompok - Pyarr

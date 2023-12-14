@@ -48,9 +48,11 @@
         <div class="container py-5">
             <div class="row">
                 <div class="col">
+                    <a href="/" class="btn btn-primary mb-3 align-items-center">Kembali ke Dashboard</a>
                     <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4" data-aos="fade-up">
                         <ol class="breadcrumb mb-0">
                             <li class="breadcrumb-item active fs-1 fw-semibold mx-auto" aria-current="page">Profile</li>
+
                         </ol>
                     </nav>
                 </div>
@@ -59,37 +61,38 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="card mb-4" data-aos="zoom-in-right">
-                        <form action="/profile/{{ Auth::user()->id }}/profile-picture" method="post" enctype="multipart/form-data">
+                        <form action="/profile/{{ Auth::user()->id }}/profile-picture" method="post"
+                            enctype="multipart/form-data">
                             @csrf
                             <div class="card-body text-center">
                                 @if (Auth::user()->profile_pic == null)
-                                    <div class="img-wrap">
-                                        <span class="close">
-                                            <a href="/Readteracy/account/{{ Auth::user()->id }}/delete/profile-picture">
-                                                <i class="bi bi-trash2"
-                                                    style="font-size: 1.5rem; color: rgb(255, 255, 255);">
-                                                </i>
-                                            </a>
-                                        </span>
-                                        <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->username) }}&background=random&color=28a745"
-                                            alt="avatar" class="rounded-circle img-fluid" style="width: 150px;"
-                                            id="image_preview">
-                                    </div>
+                                <div class="img-wrap">
+                                    <span class="close">
+                                        <a href="/Readteracy/account/{{ Auth::user()->id }}/delete/profile-picture">
+                                            <i class="bi bi-trash2"
+                                                style="font-size: 1.5rem; color: rgb(255, 255, 255);">
+                                            </i>
+                                        </a>
+                                    </span>
+                                    <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->username) }}&background=random&color=28a745"
+                                        alt="avatar" class="rounded-circle img-fluid" style="width: 150px;"
+                                        id="image_preview">
+                                </div>
                                 @else
-                                    <div class="img-wrap">
-                                        <span class="close">
-                                            <a href="/Readteracy/account/{{ Auth::user()->id }}/delete/profile-picture">
-                                                <i class="bi bi-trash3"
-                                                    style="font-size: 1.5rem; color: rgb(255, 255, 255);"></i>
-                                            </a>
-                                        </span>
-                                        <img src="/assets/images/profile/{{ Auth::user()->profile_pic }}" alt="avatar"
-                                            class="rounded-circle" width="200" height="200"
-                                            id="image_preview">
-                                    </div>
+                                <div class="img-wrap">
+                                    <span class="close">
+                                        <a href="/Readteracy/account/{{ Auth::user()->id }}/delete/profile-picture">
+                                            <i class="bi bi-trash3"
+                                                style="font-size: 1.5rem; color: rgb(255, 255, 255);"></i>
+                                        </a>
+                                    </span>
+                                    <img src="/assets/images/profile/{{ Auth::user()->profile_pic }}" alt="avatar"
+                                        class="rounded-circle" width="200" height="200" id="image_preview">
+                                </div>
                                 @endif
                                 <div class="col mt-3">
-                                    <label for="profile_pic" class="btn btn-dark"><i class="fa-solid fa-upload"></i> Pilih gambar</label>
+                                    <label for="profile_pic" class="btn btn-dark"><i class="fa-solid fa-upload"></i>
+                                        Pilih gambar</label>
                                     <input type="file" name="profile_pic" class="form-control" id="profile_pic"
                                         style="display: none;">
                                     <button class="btn btn-primary mt-3" name="updatePic">Ubah Gambar</button>
@@ -100,43 +103,15 @@
                                 <div class="d-flex justify-content-center gap-1">
                                     <p class="text-muted">
                                         @if (Auth::user()->is_admin === 0)
-                                            <p class="text-muted mb-4">Member</p>
-                                        @else
-                                            <p class="text-muted mb-4">Admin</p>
-                                        @endif
+                                    <p class="text-muted mb-4">Member</p>
+                                    @else
+                                    <p class="text-muted mb-4">Admin</p>
+                                    @endif
                                     </p>
                                     <span class="fw-semibold" style="color: #711DB0">{{ Auth::user()->gender }}</span>
                                 </div>
                             </div>
                         </form>
-                    </div>
-                    <div class="card mb-4 mb-md-0" data-aos="zoom-in-up">
-                        <div class="card-body">
-                            <p class="mb-4"><span class="text-primary font-italic me-1">Mini History</span>of {{ Auth::user()->username }}</p>
-                            {{-- @if ($peminjaman->isEmpty())
-                                <div class="mb-0">
-                                    <h6 class="text-danger">Kamu belum meminjam buku apapun nih</h6>
-                                    <img data-aos="fade-up" data-aos-duration="70000" src="/img/emptyBook.gif" width="60px" height="60" alt="">
-                                    <img data-aos="fade-up" data-aos-duration="1000000" src="/img/emptyBook.gif" width="130px" height="120" alt="">
-                                    <img data-aos="fade-up" data-aos-duration="900000" src="/img/emptyBook.gif" width="90px" height="80" alt="">
-                                </div>
-                            @else
-                                @foreach ($peminjaman as $borrow)
-                                    <div class="row mb-2">
-                                        <p class="mb-1 fw-bold">{{ $borrow->judul }}</p>
-                                        <div class="col-xl-3">
-                                            <img src="/img/buku/{{ $borrow->image }}" width="80px" alt="">
-                                        </div>
-                                        <div class="col-xl-7">
-                                            <?php
-                                            $sinopsis = $borrow->sinopsis;
-                                            if (strlen($sinopsis) > 10) {
-                                                $sinopsis = Str::substr($sinopsis, 0, 50) .'...';
-                                                echo $sinopsis;
-                                            }
-                                            ?>
-                            --}}
-                        </div>
                     </div>
                 </div>
                 <div class="col-lg-8" data-aos="zoom-in-left">
@@ -154,7 +129,8 @@
                                             value="{{ Auth::user()->username }}" name="username" readonly>
                                     </div>
                                     <div class="col offset-sm-3">
-                                        <a class="btn btn-dark rounded-4" id="nameButton"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a class="btn btn-dark rounded-4" id="nameButton"><i
+                                                class="fa-solid fa-pen-to-square"></i></a>
                                     </div>
                                 </div>
                                 <hr>
@@ -174,17 +150,17 @@
                                     </div>
                                     <div class="col-sm-4">
                                         @if (Auth::user()->no_hp === null)
-                                            <input class="form-control" id="no_hpInput" type="text"
-                                                placeholder="No hp tidak tercantum" name="no_hp"
-                                                inputmode="numeric" readonly>
+                                        <input class="form-control" id="no_hpInput" type="text"
+                                            placeholder="No hp tidak tercantum" name="no_hp" inputmode="numeric"
+                                            readonly>
                                         @else
-                                            <input class="form-control" id="no_hpInput" type="text"
-                                                value="{{ Auth::user()->no_hp }}" name="no_hp" inputmode="numeric"
-                                                readonly>
+                                        <input class="form-control" id="no_hpInput" type="text"
+                                            value="{{ Auth::user()->no_hp }}" name="no_hp" inputmode="numeric" readonly>
                                         @endif
                                     </div>
                                     <div class="col offset-sm-3">
-                                        <a class="btn btn-dark rounded-4" id="no_hpButton"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a class="btn btn-dark rounded-4" id="no_hpButton"><i
+                                                class="fa-solid fa-pen-to-square"></i></a>
                                     </div>
                                 </div>
                                 <hr>
@@ -194,32 +170,74 @@
                                     </div>
                                     <div class="col-sm-4">
                                         @if (Auth::user()->alamat == null)
-                                            <input class="form-control" id="alamatInput" type="text"
-                                                placeholder="Belum memiliki alamat" name="alamat" readonly>
+                                        <input class="form-control" id="alamatInput" type="text"
+                                            placeholder="Belum memiliki alamat" name="alamat" readonly>
                                         @else
-                                            <input class="form-control" id="alamatInput" type="text"
-                                                value="{{ Auth::user()->alamat }}" name="alamat" readonly>
+                                        <input class="form-control" id="alamatInput" type="text"
+                                            value="{{ Auth::user()->alamat }}" name="alamat" readonly>
                                         @endif
                                     </div>
                                     <div class="col offset-sm-3">
-                                        <a class="btn btn-dark rounded-4" id="alamatButton"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a class="btn btn-dark rounded-4" id="alamatButton"><i
+                                                class="fa-solid fa-pen-to-square"></i></a>
                                     </div>
                                 </div>
 
                                 <hr>
                                 <div class="row">
-                                    <button type="submit" name="updateProfile" class="btn btn-dark">Update Profile</button>
+                                    <button type="submit" name="updateProfile" class="btn btn-dark">Update
+                                        Profile</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
+
+                <div class="card mb-4 mb-md-0" data-aos="zoom-in-left">
+                    <div class="card-body w-100">
+                        <p class="mb-4"><span class="text-primary font-italic me-1">Mini History</span>of {{
+                            Auth::user()->username }}</p>
+
+                        @if ($peminjamanTerbaru->isEmpty())
+                            <p>Belum ada barang yang dipinjam.</p>
+                        @else
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Username</th>
+                                    <th>Piring</th>
+                                    <th>Status</th>
+                                    <th>Harga</th>
+                                    <th>Rent Date</th>
+                                    <th>Actual Return Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($peminjamanTerbaru as $peminjaman)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $peminjaman->user->username }}</td>
+                                    <td>{{ $peminjaman->piring_catalogue->nama_piring }}</td>
+                                    <td>{{ $peminjaman->status }}</td>
+                                    <td>{{ $peminjaman->piring_catalogue->harga_sewa }}</td>
+                                    <td>{{ $peminjaman->rent_date }}</td>
+                                    <td>{{ $peminjaman->actual_return_date ?? 'Belum dikembalikan' }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @endif
+                    </div>
             </div>
+        </div>
         </div>
     </section>
 
-    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
-        crossorigin="anonymous"></script>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.4.js"
+        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
     <script src="/assets/js/profile.js"></script>
     <script src="/js/aos.js"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>

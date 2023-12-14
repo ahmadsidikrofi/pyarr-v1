@@ -29,6 +29,12 @@
                         <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
+
+                @if(auth()->user() && auth()->user()->is_admin)
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Data User</span>
+                </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('admin.listuser') }}" aria-expanded="false">
                         <span>
@@ -37,11 +43,10 @@
                         <span class="hide-menu">List User</span>
                     </a>
                 </li>
+                @endif
 
-                <li class="nav-small-cap">
-                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                    <span class="hide-menu">Data User</span>
-                </li>
+
+                @if(auth()->user() && auth()->user()->is_admin)
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Piring</span>
@@ -63,6 +68,14 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
+                    <a class="sidebar-link" href="/update-status-riwayat-pinjam" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-bowl"></i>
+                        </span>
+                        <span class="hide-menu">Update Peminjaman</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
                     <a class="sidebar-link" href="/riwayat-pinjam" aria-expanded="false">
                         <span>
                             <i class="ti ti-bowl"></i>
@@ -70,6 +83,7 @@
                         <span class="hide-menu">Riwayat Peminjaman</span>
                     </a>
                 </li>
+                @endif
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">AUTH</span>
@@ -82,14 +96,14 @@
                         <span class="hide-menu">Login</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
+                {{-- <li class="sidebar-item">
                     <a class="sidebar-link" href="/register" aria-expanded="false">
                         <span>
                             <i class="ti ti-user-plus"></i>
                         </span>
                         <span class="hide-menu">Register</span>
                     </a>
-                </li>
+                </li> --}}
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

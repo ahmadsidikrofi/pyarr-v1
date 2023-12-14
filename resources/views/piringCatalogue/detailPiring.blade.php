@@ -23,30 +23,35 @@
                                 </div>
                                 <div class="card-body col-sm-7">
                                     <div class="mb-3">
-                                        <form action="/pinjam-piring/{{ $detailPiring->slug }}" method="post" enctype="multipart/form-data">
+                                        <form action="/pinjam-piring/{{ $detailPiring->slug }}" method="post"
+                                            enctype="multipart/form-data">
                                             @csrf
-                                            <input type="hidden" name="piring_catalogue_id" value="{{ $detailPiring->piring_catalogue_id }}">
+                                            <input type="hidden" name="piring_catalogue_id"
+                                                value="{{ $detailPiring->piring_catalogue_id }}">
                                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                             <div class="mb-3">
                                                 <label class="mb-3 text-primary">Ubah nama piring</label>
-                                                <input type="text" class="form-control" name="nama_piring" readonly value="{{ $detailPiring->nama_piring }}">
+                                                <input type="text" class="form-control" name="nama_piring" readonly
+                                                    value="{{ $detailPiring->nama_piring }}">
                                             </div>
 
                                             <div class="mb-3">
                                                 <label class="mb-3 text-primary">Deskripsi piring</label>
-                                                <input type="text" class="form-control" name="deskripsi_piring" readonly value="{{ $detailPiring->deskripsi_piring }}">
+                                                <input type="text" class="form-control" name="deskripsi_piring" readonly
+                                                    value="{{ $detailPiring->deskripsi_piring }}">
                                             </div>
                                             <div class="mb-3">
                                                 <label class="mb-3 text-primary">Kategori bahan</label>
                                                 <h3 class="text-dark fs-4">
                                                     @foreach ( $detailPiring->categories as $currentCategory)
-                                                        {{ $currentCategory->jenis_bahan }}
+                                                    {{ $currentCategory->jenis_bahan }}
                                                     @endforeach
                                                 </h3>
                                             </div>
                                             <div class="mb-4">
                                                 <label class="mb-3 text-primary">Harga sewa</label>
-                                                <input type="text" class="form-control" name="harga_sewa" readonly value="{{ $detailPiring->harga_sewa }}">
+                                                <input type="text" class="form-control" name="harga_sewa" readonly
+                                                    value="{{ $detailPiring->harga_sewa }}">
                                             </div>
 
                                             @if ($totalPinjam >= 2)
@@ -69,7 +74,8 @@
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     $(document).ready(function($) {

@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\AuthModel;
-use Illuminate\Support\Facades\Auth as AuthLogin;
-use Illuminate\Support\Str;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth as AuthLogin;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -20,13 +21,13 @@ class AuthController extends Controller
     {
         $this->validate($request, [
             'password' => 'required|confirmed|min:5',
-            'username' => 'required'
+            'username' => 'required',
         ], [
-            'username.required' => "Field nama wajib di isi."
+            'username.required' => "Field nama wajib di isi.",
         ]);
 
         $checkEmail = AuthModel::where('email', $request->email)->first();
-        if ( $checkEmail ) {
+        if ($checkEmail) {
             return redirect()->back()->with('error', 'email sudah terdaftar');
         }
 
@@ -34,7 +35,7 @@ class AuthController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'remember_token' => Str::random(60)
+            'remember_token' => Str::random(60),
         ]);
         return redirect()->back()->with('successRegist', 'Akunmu berhasil didaftarkan 😍');
     }
@@ -44,17 +45,16 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function login_store( Request $request )
+    public function login_store(Request $request)
     {
-        if ( AuthLogin::attempt(['email' => $request->email, 'password' => $request->password]) ) {
+        if (AuthLogin::attempt(['email' => $request->email, 'password' => $request->password])) {
 
             $time = 360;
             $response = new Response(redirect('/')->with('berhasilLogin', 'Selamat Datang Di Pyarr'));
-            if ( $request->has('remember') ) {
+            if ($request->has('remember')) {
                 $response->withCookie(Cookie("gelas-piring", "gelas-piring", $time));
                 return $response;
-            }
-            else {
+            } else {
                 return redirect('/')->with('berhasilLogin', 'Selamat Datang Di Readteracy');
             }
 
@@ -74,7 +74,7 @@ class AuthController extends Controller
         return view('auth.lupaPassword');
     }
 
-    public function lupaPassword_store( Request $request )
+    public function lupaPassword_store(Request $request)
     {
         // Validasi input
         $request->validate([
@@ -92,5 +92,18 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
         return redirect("/login")->with('success', 'Password berhasil diubah!');
+    }
+
+    public function destroy($id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $user->delete();
+
+        return response()->json(['message' => 'User deleted successfully']);
     }
 }

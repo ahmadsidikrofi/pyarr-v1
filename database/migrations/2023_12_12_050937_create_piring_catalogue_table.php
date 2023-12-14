@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('deskripsi_piring');
             $table->integer('harga_sewa')->default(5000);
             $table->string('image')->nullable();
-            $table->string('status')->default('in stock');
+            $table->string('status')->default('Tersedia');
             $table->timestamps();
         });
     }

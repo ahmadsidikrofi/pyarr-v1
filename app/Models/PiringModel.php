@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class PiringModel extends Model
 {
@@ -26,7 +26,7 @@ class PiringModel extends Model
     {
         $query->when($filters["search"] ?? false, function ($query, $search) {
             return $query->where('nama_piring', 'like', '%' . $search . '%')
-             ->orWhere('deskripsi_piring', 'like', '%' . $search . '%');
+                ->orWhere('deskripsi_piring', 'like', '%' . $search . '%');
         });
         return $query;
     }
@@ -35,8 +35,8 @@ class PiringModel extends Model
     {
         return [
             'slug' => [
-                'source' => 'nama_piring'
-            ]
+                'source' => 'nama_piring',
+            ],
         ];
     }
 }

@@ -1,15 +1,15 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\dashboardAdminController;
-use App\Http\Controllers\ProfileController;
-use App\Models\AuthModel;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\dashboardAdminController;
 use App\Http\Controllers\PeminjamanPiringController;
 use App\Http\Controllers\PiringController;
+use App\Http\Controllers\ProfileController;
+use App\Models\AuthModel;
 use App\Models\PiringModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ use Illuminate\Http\Request;
 |
  */
 
-Route::get('/', function ( Request $request ) {
+Route::get('/', function (Request $request) {
     $allUsers = AuthModel::latest()->get();
     $adminCount = AuthModel::where('is_admin', true)->count();
     $nonAdminCount = AuthModel::where('is_admin', false)->count();
@@ -39,8 +39,14 @@ Route::get('/logout', [AuthController::class, "logout"]);
 Route::get('/lupa-password', [AuthController::class, "lupaPassword_page"]);
 Route::put('/lupa-password/store', [AuthController::class, "lupaPassword_store"]);
 
+Route::delete('/delete-user/{id}', [AuthController::class, 'destroy']);
+
 // LISTUSER
 Route::get('/ListUser', [dashboardAdminController::class, "ListUser"])->name('admin.listuser');
+Route::get('/tambah-user', [dashboardAdminController::class, "tampilan_tambah_user"]);
+Route::post('/tambah-user', [dashboardAdminController::class, 'store'])->name('dashboard.admin.store');
+Route::get('/edit-user/{id}', [dashboardAdminController::class, 'edit'])->name('user.edit');
+Route::put('/update-user/{id}', [DashboardAdminController::class, 'update'])->name('user.update');
 
 // Profile
 Route::get('/profile', [ProfileController::class, "profilePage"])->middleware('auth');
@@ -66,4 +72,7 @@ Route::get('/delete-piring/{slug}', [PiringController::class, "deletePiring"]);
 Route::get('/detail-piring/{slug}', [PiringController::class, "detailPiring_page"]);
 // Peminjaman Piring
 Route::post('/pinjam-piring/{slug}', [PeminjamanPiringController::class, "pinjamPiring_store"]);
-Route::get('/riwayat-pinjam', [PeminjamanPiringController::class, "riwayatPinjam_page"]);
+Route::get('/riwayat-pinjam', [PeminjamanPiringController::class, "showRiwayatPinjam"]);
+// routes/web.php
+Route::get('/update-status-riwayat-pinjam', [PeminjamanPiringController::class, "showStatusRiwayatPinjam"]);
+Route::post('/update-status-peminjaman/{id}', [PeminjamanPiringController::class, 'updateStatus']);

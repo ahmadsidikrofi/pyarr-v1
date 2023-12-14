@@ -11,8 +11,13 @@ class PeminjamanModel extends Model
     protected $table = 'peminjaman_piring';
     protected $guarded = ["actual_return_date"];
 
-    function piring_catalogue()
+    public function piring_catalogue()
     {
-        return $this->belongsTo(PiringModel::class);
+        return $this->belongsTo(PiringModel::class, 'piring_catalogue_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

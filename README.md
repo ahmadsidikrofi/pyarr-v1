@@ -1,6 +1,6 @@
 ## Logo
 <p align="center">
-    <img alt="alt_text" width="40px" src="https://github.com/ahmadsidikrofi/pyarr-v1/assets/88192138/502b1566-2d18-4747-a812-94a6e81ba54d" />
+    <img alt="alt_text" width="500px" src="https://github.com/ahmadsidikrofi/pyarr-v1/assets/88192138/502b1566-2d18-4747-a812-94a6e81ba54d" />
 </p> 
 ## PYARR
 

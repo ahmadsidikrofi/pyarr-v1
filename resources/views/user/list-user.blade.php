@@ -10,15 +10,32 @@
     <link rel="stylesheet" href="../assets/css/styles.min.css" />
     <link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+    <!-- Bootstrap CSS -->
+
+
+    <!-- DataTables CSS with Bootstrap integration -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
     <style>
         /* Contoh CSS kustom untuk DataTables */
         #myTable_wrapper {
             padding: 20px;
+            /* Atur padding wrapper */
         }
 
         #myTable_filter label {
             margin-bottom: 10px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 25px;
         }
     </style>
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -31,19 +48,29 @@
         @include('layouts.sidebar')
         <!-- Sidebar End -->
 
-        <!-- Main wrapper -->
+        <!--  Main wrapper -->
         <div class="body-wrapper">
-            <!-- Header Start -->
+            <!--  Header Start -->
             @include('layouts.header')
-            <!-- Header End -->
+            <!--  Header End -->
+
             <div class="container-fluid">
+                @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Success!</strong> {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
                 <div class="card shadow mb-4">
                     <div class="card-body ">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title fw-semibold mb-4">Daftar List User</h5>
+                            <a class="btn btn-info" href="/tambah-user">Tambah User</a>
+                        </div>
                         <div class="table-responsive">
-                            <table class="table table-bordered border-primary" id="myTable" width="100%"
-                                cellspacing="0">
+                            <table class="table" id="myTable" width="100%">
                                 <thead>
-                                    <tr>
+                                    <tr class="bg-info-subtle text-dark-light">
                                         <th scope="col">No</th>
                                         <th scope="col">Username</th>
                                         <th scope="col">Email</th>
@@ -61,7 +88,7 @@
                                             @if ($datauser->is_admin)
                                             Admin
                                             @else
-                                            User
+                                            Customer
                                             @endif
                                         </td>
                                         <td>
@@ -70,13 +97,14 @@
                                             <button class="btn btn-danger" onclick="confirmDelete({{ $datauser->id }})">
                                                 <i class="fas fa-trash-alt"></i>Delete
                                             </button>
+
                                         </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                             <div class="py-6 px-6 text-center">
-                                <p class="mb-0 fs-4">Design and Developed by Readteracy</p>
+                                <p class="mb-0 fs-4">Design and Developed by Pyarr</p>
                             </div>
                         </div>
                     </div>
@@ -84,6 +112,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- Include jQuery and DataTables -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
@@ -135,10 +164,10 @@
                     if (response.success) { // Adjusted to check response.success directly
                         Swal.fire("Deleted!", response.message, "success")
                         .then(() => {
-                            location.reload(); // Reload the page
+                            window.location.reload(); // Reload the page
                         });
                     } else {
-                        Swal.fire("Error", response.message, "error");
+                        Swal.fire("Success", response.message, "success");
                     }
                 },
                 error: function(xhr, status, error) {
@@ -150,6 +179,9 @@
             });
         }
     </script>
+
+    <!-- Include Bootstrap JavaScript -->
+
 </body>
 
 </html>

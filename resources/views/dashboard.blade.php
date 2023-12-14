@@ -13,99 +13,54 @@
 		<!--  Header Start -->
 		@include('layouts.header')
 		<!--  Header End -->
+		@if (Auth::user()->is_admin === 1)
+		@include('dashboardAdmin')
+		@endif
 		<div class="container-fluid">
+			<form action="/" role="search" class="mb-5">
+				<div class="d-flex gap-2 align-items-center justify-content-center">
+					<input type="search" name="search" placeholder="Cari piring disini..." class="form-control w-50">
+					<button class="btn btn-success" value="{{ request('search') }}">Cari</button>
+				</div>
+			</form>
 			<div class="row">
-				<div class="row">
-					<div class="col-sm-6 col-xl-3">
-						<div class="card overflow-hidden rounded-2">
-							<div class="card-body pt-3 p-4">
-								<h6 class="fw-semibold fs-4">
-									Total User:
-									<a href="/edit-material/">{{ $nonAdminCount }}</a>
-								</h6>
-								<div class="d-flex align-items-center justify-content-between">
-									<h6 class="fw-semibold fs-4 mb-0">
-										<span class="ms-2 fw-normal text-muted fs-3">
-										</span>
-									</h6>
-								</div>
-							</div>
+				@foreach ($allPiring as $piring)
+				<div class="col-sm-6 col-xl-3">
+					<div class="card overflow-hidden rounded-2">
+						<div class="position-relative">
+							@if (Auth::user()->is_admin === 1)
+							<a href="/edit-piring/{{ $piring->slug }}"><img src="../assets/images/{{ $piring->image }}"
+									class="card-img-top rounded-3" alt="..."></a>
+							@else
+							<a href="/detail-piring/{{ $piring->slug }}"><img
+									src="../assets/images/{{ $piring->image }}" class="card-img-top rounded-3"
+									alt="..."></a>
+							@endif
+							<a href="/delete-piring/{{ $piring->slug }}"
+								class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3"
+								data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><i
+									class="ti ti-trash fs-4"></i>
+							</a>
 						</div>
-					</div>
-					<div class="col-sm-6 col-xl-3">
-						<div class="card overflow-hidden rounded-2">
-							<div class="card-body pt-3 p-4">
-								<h6 class="fw-semibold fs-4">
-									Total Admin:
-									<a href="/edit-material/">{{ $adminCount }}</a>
+						<div class="card-body pt-3 p-4">
+							<h6 class="fw-semibold fs-4">
+								@if (Auth::user()->is_admin === 1)
+								<a href="/edit-piring/{{ $piring->slug }}">{{ $piring->nama_piring }}</a>
+								@elseif (Auth::user()->is_admin === 0)
+								<a href="/detail-piring/{{ $piring->slug }}">{{ $piring->nama_piring }}</a>
+								@endif
+							</h6>
+							<div class="d-flex align-items-center justify-content-between">
+								<h6 class="fw-semibold fs-4 mb-0">
+									<span class="ms-2 fw-normal text-muted fs-3">
+										{{ $piring->deskripsi_piring }}
+									</span>
 								</h6>
-								<div class="d-flex align-items-center justify-content-between">
-									<h6 class="fw-semibold fs-4 mb-0">
-										<span class="ms-2 fw-normal text-muted fs-3">
-										</span>
-									</h6>
-								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-8 d-flex align-items-stretch">
-					<div class="card w-100">
-						<div class="card-body p-4">
-							<h5 class="card-title fw-semibold mb-4">All Users</h5>
-							<div class="table-responsive">
-								<table class="table text-nowrap mb-0 align-middle">
-									<thead class="text-dark fs-4">
-										<tr>
-											<th class="border-bottom-0">
-												<h6 class="fw-semibold mb-0">Username</h6>
-											</th>
-											<th class="border-bottom-0">
-												<h6 class="fw-semibold mb-0">Email</h6>
-											</th>
-											<th class="border-bottom-0">
-												<h6 class="fw-semibold mb-0">Is Admin</h6>
-											</th>
-											<th class="border-bottom-0">
-												<h6 class="fw-semibold mb-0">Picture</h6>
-											</th>
-										</tr>
-									</thead>
-									<tbody>
-										@foreach ( $allUsers as $user )
-
-										@endforeach
-										<tr>
-											<td class="border-bottom-0">
-												<h6 class="fw-semibold mb-0">{{ $user->username }}</h6>
-												<span class="fw-normal">Web Designer</span>
-											</td>
-											<td class="border-bottom-0">
-												<h6 class="fw-semibold mb-1">{{ $user->email }}</h6>
-											</td>
-											<td class="border-bottom-0">
-												@if ($user->is_admin === 0 )
-												<p class="mb-0 fw-normal">Member</p>
-												@elseif ($user->is_admin === 1)
-												<p class="mb-0 fw-normal">Admin</p>
-												@endif
-											</td>
-											<td class="border-bottom-0">
-												<div class="d-flex align-items-center gap-2">
-													<img src="../assets/images/profile/user-1.jpg" alt="" width="35"
-														height="35" class="rounded-circle">
-												</div>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="py-6 px-6 text-center">
-				<p class="mb-0 fs-4">Design and Developed by Readteracy</p>
+				@endforeach
 			</div>
 		</div>
 	</div>

@@ -17,8 +17,11 @@ return new class extends Migration
             $table->string('username');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('alamat')->nullable();
+            $table->string('no_hp')->nullable();
+            $table->enum('gender', ["Pria", "Wanita"])->default("Pria");
             $table->string('profile_pic')->nullable();
-            $table->boolean('is_admin')->default(false);
+            $table->boolean('is_admin')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });

@@ -40,7 +40,7 @@
 
                                     <div class="mb-4">
                                         <label for="password_confirmation" class="form-label">Tulis ulang password</label>
-                                        <input name="password_confirmation" type="password_confirmation" class="form-control" id="password_confirmation">
+                                        <input name="password_confirmation" type="password" class="form-control" id="password_confirmation">
                                         <i class="@error('password') is-invalid @enderror"></i>
 
                                         @error('password')

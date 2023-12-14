@@ -19,7 +19,7 @@
                             </div>
                             <div class="card">
                                 <div class="card-header col-sm-3">
-                                    <img src="/assets/images/{{ $detailPiring->image }}" width="200" height="200" alt="">
+                                    <img src="/assets/images/{{ $detailPiring->image }}" width="200" height="200" class="rounded-5" alt="">
                                 </div>
                                 <div class="card-body col-sm-7">
                                     <div class="mb-3">
@@ -49,11 +49,14 @@
                                                 <input type="text" class="form-control" name="harga_sewa" readonly value="{{ $detailPiring->harga_sewa }}">
                                             </div>
 
-                                            <p class="p-2 bg-primary text-white fw-bold rounded-3">Piring terpinjam : {{ $totalPinjam }}</p>
                                             @if ($totalPinjam >= 2)
-                                                <button class="btn btn-success btn-md" disabled type="submit">Pinjam sekarang</button>
+                                                <button class="btn btn-success btn-md mb-3 rounded-3" disabled type="submit">Pinjam sekarang</button>
+                                                <p class="p-2 bg-primary text-white fw-bold rounded-3 w-50">Peminjaman telah mencapai batas
+                                                    Total peminjaman => {{ $totalPinjam }}
+                                                </p>
                                             @else
-                                            <button class="btn btn-success btn-md" type="submit">Pinjam sekarang</button>
+                                                <p class="p-2 bg-primary text-white fw-bold rounded-3">Piring terpinjam : {{ $totalPinjam }}</p>
+                                                <button class="btn btn-success btn-md" type="submit">Pinjam sekarang</button>
                                             @endif
                                         </form>
                                     </div>

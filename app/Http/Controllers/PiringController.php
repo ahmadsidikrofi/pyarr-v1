@@ -69,9 +69,15 @@ class PiringController extends Controller
     // Detail Piring (user/ member)
     public function detailPiring_page($slug)
     {
+        $userId = Auth::id();
         $detailPiring = PiringModel::where('slug', $slug)->first();
         $categories = CategoryModel::all();
-        $totalPinjam = PeminjamanModel::where('user_id', Auth::user()->id)->count();
+        $totalPinjam = PeminjamanModel::where('user_id', $userId)
+        ->where(function ($query) {
+            $query->where('status', 'Sedang Dipinjam')
+                ->orWhere('status', 'Tersedia');
+        })
+        ->count();
         return view('piringCatalogue.detailPiring', compact(['detailPiring', 'categories', 'totalPinjam']));
     }
 }

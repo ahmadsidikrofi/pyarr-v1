@@ -9,7 +9,7 @@
                 <path
                     d="m14.12 6.576 1.715.858c.22.11.22.424 0 .534l-7.568 3.784a.598.598 0 0 1-.534 0L.165 7.968a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.659z" />
             </svg>
-            <span class="fw-bold">Readteracy</span>
+            <span class="fw-bold">Pyarr</span>
             <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                 <i class="ti ti-x fs-8"></i>
             </div>
@@ -29,6 +29,16 @@
                         <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
+                @if (auth()->user()->is_admin === 0)
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/piring-terpinjam" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-clipboard"></i>
+                        </span>
+                        <span class="hide-menu">Piring Terpinjam</span>
+                    </a>
+                </li>
+                @endif
 
                 @if(auth()->user() && auth()->user()->is_admin)
                 <li class="nav-small-cap">
@@ -62,7 +72,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/tambah-piring" aria-expanded="false">
                         <span>
-                            <i class="ti ti-bowl"></i>
+                            <i class="ti ti-plus"></i>
                         </span>
                         <span class="hide-menu">Tambah Piring</span>
                     </a>
@@ -70,7 +80,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/update-status-riwayat-pinjam" aria-expanded="false">
                         <span>
-                            <i class="ti ti-bowl"></i>
+                            <i class="ti ti-pencil"></i>
                         </span>
                         <span class="hide-menu">Update Peminjaman</span>
                     </a>
@@ -78,7 +88,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/riwayat-pinjam" aria-expanded="false">
                         <span>
-                            <i class="ti ti-bowl"></i>
+                            <i class="ti ti-clipboard"></i>
                         </span>
                         <span class="hide-menu">Riwayat Peminjaman</span>
                     </a>

@@ -13,13 +13,15 @@ class ProfileController extends Controller
     public function profilePage()
     {
         $userId = Auth::id();
-        $peminjamanTerbaru = PeminjamanModel::with('piring_catalogue')
+        $peminjamanTerbaru = PeminjamanModel::with('piring_catalogue', 'user')
             ->where('user_id', $userId)
+            ->whereIn('status', ['Sedang Dipinjam', 'Sudah Dikembalikan', 'Siap Dikembalikan'])
             ->latest()
             ->take(3)
             ->get();
-
-        return view('user.profile', compact('peminjamanTerbaru'));
+        $countTersedia = PeminjamanModel::with('piring_catalogue')->where('user_id', $userId)->where('status', 'Tersedia')->count();
+        $statusTersedia = PeminjamanModel::with('piring_catalogue')->where('user_id', $userId)->get();
+        return view('user.profile', compact(['peminjamanTerbaru', 'statusTersedia', 'countTersedia']));
     }
 
     public function profileUpdate_store(Request $request)

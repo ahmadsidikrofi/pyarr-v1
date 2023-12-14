@@ -28,14 +28,19 @@
 				<div class="col-sm-6 col-xl-3">
 					<div class="card overflow-hidden rounded-2">
 						<div class="position-relative">
-							@if (Auth::user()->is_admin === 1)
-							<a href="/edit-piring/{{ $piring->slug }}"><img src="../assets/images/{{ $piring->image }}"
-									class="card-img-top rounded-3" alt="..."></a>
-							@else
-							<a href="/detail-piring/{{ $piring->slug }}"><img
-									src="../assets/images/{{ $piring->image }}" class="card-img-top rounded-3"
-									alt="..."></a>
-							@endif
+                            <p class="text-dark p-1 px-3 m-2 text-white bg-primary rounded-3 fw-bold" style="position: absolute; ">
+                                {{ implode('-', $piring->categories->pluck('jenis_bahan')->toArray()) }}
+                            </p>
+                            <div >
+                                @if (Auth::user()->is_admin === 1)
+                                <a href="/edit-piring/{{ $piring->slug }}" ><img src="../assets/images/{{ $piring->image }}"
+                                    class="card-img-top rounded-3" alt="..."></a>
+                                @else
+                                <a href="/detail-piring/{{ $piring->slug }}"><img
+                                        src="../assets/images/{{ $piring->image }}" class="card-img-top rounded-3"
+                                        alt="..."></a>
+                                @endif
+                            </div>
 							<a href="/delete-piring/{{ $piring->slug }}"
 								class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3"
 								data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><i
@@ -53,7 +58,10 @@
 							<div class="d-flex align-items-center justify-content-between">
 								<h6 class="fw-semibold fs-4 mb-0">
 									<span class="ms-2 fw-normal text-muted fs-3">
-										{{ $piring->deskripsi_piring }}
+										{!! Str::length($piring->deskripsi_piring) > 50 ?
+                                            Str::substr($piring->deskripsi_piring, 0, 100) . "..." :
+                                            $piring->deskripsi_piring
+                                        !!}
 									</span>
 								</h6>
 							</div>

@@ -13,7 +13,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="card-title fw-semibold mb-4">Update Peminjaman</h5>
+                            <p class="card-title fw-light mb-4 p-2 bg-danger rounded-3 text-white">Ada <strong class="fw-bold">{{ $countStatusTersedia }} piring</strong> yang menunggu persetujuanmu</p>
                         </div>
+                        <p class="fs-4 text-center mb-4 p-2 bg-success rounded-3 text-white"><strong class="fw-bold">{{ $countSiapDikembalikan }} piring</strong> Sudah siap Dikembalikan</p>
                         <div class="card">
                             <div class="card-body">
                                 <table id="myTable" class="display">
@@ -32,7 +34,8 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($peminjamanPirings as $peminjaman)
-                                        <tr>
+                                        <tr class="{{ $peminjaman->actual_return_date === NULL ? '' :
+                                            ($peminjaman->return_date < $peminjaman->actual_return_date ? 'bg-danger text-light' : 'bg-success text-light') }}">
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $peminjaman->user->username }}</td>
                                             <td>{{ $peminjaman->piring_catalogue->nama_piring }}</td>
@@ -49,6 +52,9 @@
                                                             <option value="Sedang Dipinjam" {{ $peminjaman->status ==
                                                                 'Sedang Dipinjam' ? 'selected' : '' }}>Sedang
                                                                 Dipinjam</option>
+                                                            <option value="Siap Dikembalikan" {{ $peminjaman->status ==
+                                                                'Siap Dikembalikan' ? 'selected' : ''
+                                                                }}>Siap Dikembalikan</option>
                                                             <option value="Sudah Dikembalikan" {{ $peminjaman->status ==
                                                                 'Sudah Dikembalikan' ? 'selected' : ''
                                                                 }}>Sudah Dikembalikan</option>

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('peminjaman_id')->nullable();
             $table->unsignedBigInteger('piring_catalogue_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->string('status')->default("in stock");
+            $table->string('status')->default("Tersedia");
             $table->date('rent_date');
             $table->date('return_date');
             $table->date('actual_return_date')->nullable();

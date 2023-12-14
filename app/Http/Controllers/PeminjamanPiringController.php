@@ -32,18 +32,23 @@ class PeminjamanPiringController extends Controller
     public function showStatusRiwayatPinjam()
     {
         $peminjamanPirings = PeminjamanModel::with(['user', 'piring_catalogue'])->get();
+        $countStatusTersedia = PeminjamanModel::where('status', "Tersedia")->count();
+        $countSiapDikembalikan = PeminjamanModel::where('status', "Siap Dikembalikan")->count();
         // Menghitung total harga
         $totalHarga = $peminjamanPirings->reduce(function ($carry, $item) {
             return $carry + $item->piring_catalogue->harga_sewa;
         }, 0);
 
-        return view('user.update-riwayat-pinjam', compact('peminjamanPirings', 'totalHarga'));
+        return view('user.update-riwayat-pinjam', compact([
+            'peminjamanPirings', 'totalHarga',
+            'countStatusTersedia', 'countSiapDikembalikan'
+        ]));
 
     }
     public function updateStatus(Request $request, $id)
     {
         $request->validate([
-            'status' => 'required|in:Tersedia,Sedang Dipinjam,Sudah Dikembalikan',
+            'status' => 'required|in:Tersedia,Sedang Dipinjam,Siap Dikembalikan,Sudah Dikembalikan',
         ]);
 
         $peminjaman = PeminjamanModel::findOrFail($id);
@@ -53,9 +58,7 @@ class PeminjamanPiringController extends Controller
         if ($request->status == 'Sudah Dikembalikan') {
             $peminjaman->actual_return_date = now();
         }
-
         $peminjaman->save();
-
         // Redirect kembali dengan pesan sukses
         return back()->with('success', 'Status berhasil diupdate.');
     }
@@ -70,5 +73,20 @@ class PeminjamanPiringController extends Controller
 
         return view('user.riwayat-pinjam', compact('peminjamanPirings', 'totalHarga'));
 
+    }
+
+    public function showRiwayatPinjamUser()
+    {
+        $user = auth()->user();
+        $piringUser = PeminjamanModel::with('piring_catalogue')->where('user_id', $user->id)->latest()->get();;
+        return view('user.piringTerpinjam', compact(['piringUser']));
+    }
+
+    public function kembalikanPiringUser(Request $request, $id)
+    {
+        $kembalikanPiring = PeminjamanModel::findOrFail($id);
+        $kembalikanPiring->status = "Siap Dikembalikan";
+        $kembalikanPiring->save();
+        return redirect()->back();
     }
 }

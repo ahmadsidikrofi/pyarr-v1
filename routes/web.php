@@ -73,6 +73,8 @@ Route::get('/detail-piring/{slug}', [PiringController::class, "detailPiring_page
 // Peminjaman Piring
 Route::post('/pinjam-piring/{slug}', [PeminjamanPiringController::class, "pinjamPiring_store"]);
 Route::get('/riwayat-pinjam', [PeminjamanPiringController::class, "showRiwayatPinjam"]);
+Route::get('/piring-terpinjam', [PeminjamanPiringController::class, "showRiwayatPinjamUser"]);
+Route::put('/kembalikan-piring/{id}', [PeminjamanPiringController::class, "kembalikanPiringUser"]);
 // routes/web.php
 Route::get('/update-status-riwayat-pinjam', [PeminjamanPiringController::class, "showStatusRiwayatPinjam"]);
 Route::post('/update-status-peminjaman/{id}', [PeminjamanPiringController::class, 'updateStatus']);

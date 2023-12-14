@@ -4,6 +4,7 @@
 
 @include('layouts.sidebar')
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
 <div class="body-wrapper">
     @include('layouts.header')
@@ -30,7 +31,9 @@
 
                                             <div class="mb-3">
                                                 <label class="mb-3 text-primary">Deskripsi piring</label>
-                                                <input type="text" class="form-control" name="deskripsi_piring" value="{{ $editPiring->deskripsi_piring }}">
+                                                <textarea name="deskripsi_piring" id="deskripsi_piring">
+                                                    {{ $editPiring->deskripsi_piring }}
+                                                </textarea>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="mb-3 text-primary">Kategori bahan</label>
@@ -73,6 +76,13 @@
 <script>
     $(document).ready(function($) {
         $('.multiple-category').select2();
+    });
+</script>
+<script>
+    tinymce.init({
+      selector: 'textarea',
+      plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+      toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
     });
 </script>
 @endsection

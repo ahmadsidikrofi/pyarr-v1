@@ -195,9 +195,10 @@
 
                 <div class="card mb-4 mb-md-0" data-aos="zoom-in-left">
                     <div class="card-body w-100">
-                        <p class="mb-4"><span class="text-primary font-italic me-1">Mini History</span>of {{
-                            Auth::user()->username }}</p>
-
+                        <p class="mb-4"><span class="text-primary font-italic me-1">Mini History</span>of {{ Auth::user()->username }}</p>
+                        @if ($statusTersedia->contains('status', 'Tersedia'))
+                            <p class="fw-bold text-light p-2 bg-warning rounded-3" style="width: 310px;">Sabar yaa, {{ $countTersedia }} barangmu sedang diproses</p>
+                        @endif
                         @if ($peminjamanTerbaru->isEmpty())
                             <p>Belum ada barang yang dipinjam.</p>
                         @else

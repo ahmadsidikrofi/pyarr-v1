@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('piring_catalogue_id')->nullable();
             $table->string('nama_piring');
             $table->string('slug', 255)->nullable();
-            $table->string('deskripsi_piring');
+            $table->longText('deskripsi_piring');
             $table->integer('harga_sewa')->default(5000);
             $table->string('image')->nullable();
             $table->string('status')->default('Tersedia');

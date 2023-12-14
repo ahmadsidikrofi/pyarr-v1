@@ -1,4 +1,7 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center">
+    ![logo2](https://github.com/ahmadsidikrofi/pyarr-v1/assets/88192138/502b1566-2d18-4747-a812-94a6e81ba54d)
+
+</p>
 
 ## PYARR
 

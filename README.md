@@ -18,7 +18,7 @@
 4. Datatables : https://datatables.net/
 5. Select2 : https://select2.org/
 6. TinyMCE : https://www.tiny.cloud/docs/tinymce/6/
-7. Disqus : disqus.com 
+7. Disqus : https://help.disqus.com/
 
 ## Daftar Fitur - Admin
 | No  | Nama Fitur |

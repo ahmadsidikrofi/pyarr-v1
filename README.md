@@ -2,6 +2,7 @@
 <p align="center">
     <img alt="alt_text" width="500px" src="https://github.com/ahmadsidikrofi/pyarr-v1/assets/88192138/502b1566-2d18-4747-a812-94a6e81ba54d" />
 </p> 
+
 ## PYARR
 
 ## Anggota Kelompok - Pyarr
@@ -9,6 +10,15 @@
 | ------------- | ------------- |
 | Ahmad Sidik Rofiudin  | 1202204108  |
 | Imam Mukhlash  | 1202204032  |
+
+## Pre-requisites:
+1. Install Sluggable : https://github.com/cviebrock/eloquent-sluggable
+2. SweetAlert2 : https://sweetalert2.github.io/
+3. Avatarui : https://ui-avatars.com/
+4. Datatables : https://datatables.net/
+5. Select2 : https://select2.org/
+6. TinyMCE : https://www.tiny.cloud/docs/tinymce/6/
+7. Disqus : disqus.com 
 
 ## Daftar Fitur - Admin
 | No  | Nama Fitur |

@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\dashboardAdminController;
-use App\Http\Controllers\PeminjamanPiringController;
-use App\Http\Controllers\PiringController;
-use App\Http\Controllers\ProfileController;
 use App\Models\AuthModel;
 use App\Models\PiringModel;
 use Illuminate\Http\Request;
+use App\Models\CategoryModel;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PiringController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\dashboardAdminController;
+use App\Http\Controllers\PeminjamanPiringController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,8 +27,13 @@ Route::get('/', function (Request $request) {
     $allUsers = AuthModel::latest()->get();
     $adminCount = AuthModel::where('is_admin', true)->count();
     $nonAdminCount = AuthModel::where('is_admin', false)->count();
+    $totalPiring = PiringModel::count();
+    $totalKategori = CategoryModel::count();
     $allPiring = PiringModel::latest()->filter(['search' => $request->search])->paginate(10);
-    return view('dashboard', compact(['allUsers', 'adminCount', 'nonAdminCount', 'allPiring']));
+    return view('dashboard', compact([
+        'allUsers', 'adminCount', 'nonAdminCount',
+        'allPiring', 'totalPiring', 'totalKategori'
+    ]));
 })->middleware('auth');
 
 // Auth

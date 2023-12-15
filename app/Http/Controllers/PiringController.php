@@ -51,6 +51,9 @@ class PiringController extends Controller
     {
         $editPiring = PiringModel::where('slug', $slug)->first();
         $editPiring->update($request->except("category"));
+        if ($request->category) {
+            $editPiring->categories()->sync($request->category);
+        }
 
         if ( $request -> hasFile("image") ) {
             $request -> file("image")->move("assets/images/", $request->file("image")->getClientOriginalName());

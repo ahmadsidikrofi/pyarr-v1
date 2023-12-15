@@ -32,7 +32,7 @@
                                                 <form action="/kembalikan-piring/{{ $piring->id }}" method="post">
                                                     @csrf
                                                     @method('put')
-                                                    <input type="text" name="status" value="{{ $piring->status }}">
+                                                    <input type="hidden" name="status" value="{{ $piring->status }}">
                                                     <button type="submit" class="btn btn-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3"
                                                         data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><i
                                                             class="ti ti-reload fs-4"></i>
@@ -47,10 +47,14 @@
                                                     <p class="text-danger">Menunggu persetujuan admin</p>
                                                 @elseif ($piring->status === "Siap Dikembalikan")
                                                     <p class="text-danger">Pengembalian akan diproses oleh admin</p>
+                                                @elseif ($piring->status === "Sedang Dipinjam")
+                                                    <p class="text-warning ">Sisa waktu peminjaman: <br>
+                                                        <span class="fw-bold">{{ $sisaHari }} hari dan {{ $sisaJam }} jam</span>
+                                                    </p>
                                                 @endif
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <h6 class="fw-semibold fs-4 mb-0">
-                                                        <span class="ms-2 fw-normal text-muted fs-3">
+                                                        <span class="fw-normal text-muted fs-3">
                                                             {!! Str::length($piring->piring_catalogue->deskripsi_piring) > 50 ?
                                                                 Str::substr($piring->piring_catalogue->deskripsi_piring, 0, 100) . "..." :
                                                                 $piring->piring_catalogue->deskripsi_piring

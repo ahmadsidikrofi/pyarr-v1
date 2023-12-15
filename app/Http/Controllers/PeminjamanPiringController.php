@@ -78,8 +78,13 @@ class PeminjamanPiringController extends Controller
     public function showRiwayatPinjamUser()
     {
         $user = auth()->user();
-        $piringUser = PeminjamanModel::with('piring_catalogue')->where('user_id', $user->id)->latest()->get();;
-        return view('user.piringTerpinjam', compact(['piringUser']));
+        $piringUser = PeminjamanModel::with('piring_catalogue')->where('user_id', $user->id)->latest()->get();
+        foreach ($piringUser as $piring) {
+            $sisaWaktu = Carbon::now()->diff($piring->return_date);
+            $sisaHari = $sisaWaktu->days;
+            $sisaJam = $sisaWaktu->h;
+        }
+        return view('user.piringTerpinjam', compact(['piringUser', 'sisaHari', 'sisaJam']));
     }
 
     public function kembalikanPiringUser(Request $request, $id)

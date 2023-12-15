@@ -13,9 +13,13 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="card-title fw-semibold mb-4">Update Peminjaman</h5>
+                            @if ($countStatusTersedia !== 0)
                             <p class="card-title fw-light mb-4 p-2 bg-danger rounded-3 text-white">Ada <strong class="fw-bold">{{ $countStatusTersedia }} piring</strong> yang menunggu persetujuanmu</p>
+                            @endif
                         </div>
+                        @if ($countSiapDikembalikan !== 0)
                         <p class="fs-4 text-center mb-4 p-2 bg-success rounded-3 text-white"><strong class="fw-bold">{{ $countSiapDikembalikan }} piring</strong> Sudah siap Dikembalikan</p>
+                        @endif
                         <div class="card">
                             <div class="card-body">
                                 <table id="myTable" class="display">

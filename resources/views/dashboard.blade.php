@@ -35,17 +35,18 @@
                                 @if (Auth::user()->is_admin === 1)
                                 <a href="/edit-piring/{{ $piring->slug }}" ><img src="../assets/images/{{ $piring->image }}"
                                     class="card-img-top rounded-3" alt="..."></a>
+                                    <a href="/delete-piring/{{ $piring->slug }}"
+                                        class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3"
+                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><i
+                                            class="ti ti-trash fs-4"></i>
+                                    </a>
                                 @else
                                 <a href="/detail-piring/{{ $piring->slug }}"><img
                                         src="../assets/images/{{ $piring->image }}" class="card-img-top rounded-3"
                                         alt="..."></a>
                                 @endif
                             </div>
-							<a href="/delete-piring/{{ $piring->slug }}"
-								class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3"
-								data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><i
-									class="ti ti-trash fs-4"></i>
-							</a>
+
 						</div>
 						<div class="card-body pt-3 p-4">
 							<h6 class="fw-semibold fs-4">

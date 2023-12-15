@@ -1,3 +1,4 @@
+<title>Profil nya {{ Auth::user()->username }}</title>
 <!-- Font Awesome -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
 <!-- Google Fonts -->

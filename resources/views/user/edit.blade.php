@@ -10,7 +10,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h5 class="card-title fw-semibold mb-4">Tambah User</h5>
+                    <h5 class="card-title fw-semibold mb-4">Update User</h5>
                     <a class="btn btn-info" href="{{ route('admin.listuser') }}">Kembali</a>
                 </div>
                 <form action="{{ route('user.update', $user->id) }}" method="post">

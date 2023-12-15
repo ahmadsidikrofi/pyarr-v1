@@ -19,7 +19,10 @@ class ProfileController extends Controller
             ->latest()
             ->take(3)
             ->get();
-        $countTersedia = PeminjamanModel::with('piring_catalogue')->where('user_id', $userId)->where('status', 'Tersedia')->count();
+        $countTersedia = PeminjamanModel::with('piring_catalogue')
+        ->where('user_id', $userId)
+        ->where('status', 'Tersedia')
+        ->count();
         $statusTersedia = PeminjamanModel::with('piring_catalogue')->where('user_id', $userId)->get();
         return view('user.profile', compact(['peminjamanTerbaru', 'statusTersedia', 'countTersedia']));
     }

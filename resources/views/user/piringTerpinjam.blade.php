@@ -33,10 +33,17 @@
                                                     @csrf
                                                     @method('put')
                                                     <input type="hidden" name="status" value="{{ $piring->status }}">
-                                                    <button type="submit" class="btn btn-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><i
-                                                            class="ti ti-reload fs-4"></i>
-                                                    </button>
+                                                    @if ($piring->status === "Sedang Dipinjam")
+                                                        <button type="submit" class="btn btn-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><i
+                                                                class="ti ti-reload fs-4"></i>
+                                                        </button>
+                                                    @else
+                                                        <button disabled type="submit" class="btn btn-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><i
+                                                                class="ti ti-reload fs-4"></i>
+                                                        </button>
+                                                    @endif
                                                 </form>
                                             </div>
                                             <div class="card-body pt-3 p-3">

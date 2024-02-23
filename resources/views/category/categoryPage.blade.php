@@ -4,6 +4,7 @@
 
 @include('layouts.sidebar')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <div class="body-wrapper">
     @include('layouts.header')
     <div class="container-fluid">
@@ -49,11 +50,24 @@
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script> --}}
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
     let table = new DataTable('#myTable', {
         responsive: true
     });
+</script>
+
+<script>
+    @if (Session::has('updateKategori'))
+        toastr.success("Kategori berhasil diubah📖")
+    @endif
+</script>
+<script>
+    @if (Session::has('hapusKategori'))
+        toastr.error("Kategori Terhapus 🗑️")
+    @endif
 </script>
 @endsection

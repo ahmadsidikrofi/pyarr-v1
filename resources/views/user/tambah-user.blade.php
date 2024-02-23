@@ -3,7 +3,7 @@
 @section('content')
 
 @include('layouts.sidebar')
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <div class="body-wrapper">
     @include('layouts.header')
     <div class="container-fluid">
@@ -17,15 +17,15 @@
                     @csrf
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" name="email" id="email" required>
+                        <input type="email" class="form-control" name="email" id="email">
                     </div>
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" name="username" id="username" required>
+                        <input type="text" class="form-control" name="username" id="username">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" name="password" id="password" required>
+                        <input type="password" class="form-control" name="password" id="password">
                     </div>
                     <div class="mb-3">
                         <label for="alamat" class="form-label">Alamat</label>
@@ -33,7 +33,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="no_hp" class="form-label">Nomor HP</label>
-                        <input type="text" class="form-control" name="no_hp" id="no_hp">
+                        <input type="number" class="form-control" name="no_hp" id="no_hp" oninput="validatePhoneNumber(this)">
+                        <span id="no_hp_error" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                         <label for="gender" class="form-label">Gender</label>
@@ -59,5 +60,31 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script>
+    @error('username')
+        toastr.error('Username user wajib diinputkan.👨');
+    @enderror
+    @error('email')
+        toastr.error('Email user wajib diinputkan.👨');
+    @enderror
+    @error('password')
+        toastr.error('Password user wajib diinputkan.👨');
+    @enderror
+</script>
+
+<script>
+    function validatePhoneNumber(input) {
+        var phoneNumber = input.value;
+        phoneNumber = phoneNumber.replace(/\D/g, '');
+        if (/^\d+$/.test(phoneNumber)) {
+            document.getElementById('no_hp_error').innerText = '';
+        } else {
+            document.getElementById('no_hp_error').innerText = 'Isian harus berupa angka';
+        }
+    }
+</script>
 
 @endsection

@@ -12,6 +12,7 @@ class CategoryModel extends Model
     use HasFactory;
     protected $table = "category";
     protected $guarded = [];
+    // protected $fillable = ['jenis_bahan'];
 
     public function sluggable(): array
     {

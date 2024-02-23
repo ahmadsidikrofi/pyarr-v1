@@ -5,6 +5,7 @@
 @include('layouts.sidebar')
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 <div class="body-wrapper">
     @include('layouts.header')
@@ -45,13 +46,14 @@
                                                 <label class="mb-3 text-primary">Harga sewa</label>
                                                 <input type="text" class="form-control" name="harga_sewa">
                                             </div>
-
-                                            <div class="mb-3 mt-5">
-                                                <label class="mb-3 text-primary">Foto piring</label>
-                                                <input type="file" class="form-control" name="image">
+                                            <div class="d-block">
+                                                {{-- <img id="image" class="rounded-4" src="/assets/images/{{ $editPiring->image }}" height="200"> --}}
+                                                <img id="image" class="rounded-4" src="https://kodfun.github.io/Reels/ImagePreview/choose.png" height="200">
                                             </div>
+                                            <input type="file" style="display: none;" id="input" name="image" class="form-control mt-2 bg-success text-white border-0">
+                                            <label class="btn btn-dark rounded-3" for="input">Beri / Ubah foto piring</label>
 
-                                            <button class="btn btn-success btn-md my-4" type="submit">Simpan Piring Baru</button>
+                                            <button class="btn btn-success rounded-3 btn-md my-4 mx-4" type="submit">Simpan Piring Baru</button>
                                         </form>
                                     </div>
                                 </div>
@@ -65,6 +67,7 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
     $(document).ready(function($) {
         $('.multiple-category').select2();
@@ -77,9 +80,27 @@
       toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
     });
 </script>
-{{-- <script>
-    jQuery(document).ready(function($) {
-        $('.multiple-category').select2();
-    });
-</script> --}}
+<script>
+    let image = document.getElementById("image");
+    let input = document.getElementById("input");
+
+    input.onchange = (e) => {
+    if (input.files[0]) image.src = URL.createObjectURL(input.files[0]);
+    };
+</script>
+
+<script>
+    @error('nama_piring')
+            toastr.error('Nama piring harus terisi.📛');
+    @enderror
+    @error('deskripsi_piring')
+            toastr.error('Deskripsi piring harus terisi.📜📜');
+    @enderror
+    @error('harga_sewa')
+            toastr.error('Harga sewa piring harus terisi.💸');
+    @enderror
+    @error('image')
+            toastr.error('Gambar piring harus diinputkan.🍽️🍽️');
+    @enderror
+</script>
 @endsection

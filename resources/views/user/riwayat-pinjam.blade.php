@@ -35,7 +35,11 @@
                                         @foreach ($peminjamanPirings as $peminjaman)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $peminjaman->user->username }}</td>
+                                            @if ($peminjaman->user)
+                                                <td>{{ $peminjaman->user->username }}</td>
+                                            @else
+                                                <td>User tidak ditemukan</td>
+                                            @endif
                                             <td>{{ $peminjaman->piring_catalogue->nama_piring }}</td>
                                             <td>
                                                 {{ $peminjaman->status }}
@@ -66,13 +70,24 @@
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+
+
+
+
+
 
 <script>
     let table = new DataTable('#myTable', {
         responsive: true,
         dom: 'Bfrtip',
         buttons: [
-            'print',
+            'copy', 'csv', 'pdf', 'print'
         ]
     });
 </script>

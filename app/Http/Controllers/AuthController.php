@@ -37,7 +37,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'remember_token' => Str::random(60),
         ]);
-        return redirect()->back()->with('successRegist', 'Akunmu berhasil didaftarkan 😍');
+        return redirect('/login')->with('successRegist', 'Akunmu berhasil didaftarkan 😍');
     }
 
     public function login_page()
@@ -55,7 +55,7 @@ class AuthController extends Controller
                 $response->withCookie(Cookie("gelas-piring", "gelas-piring", $time));
                 return $response;
             } else {
-                return redirect('/')->with('berhasilLogin', 'Selamat Datang Di Readteracy');
+                return redirect('/')->with('berhasilLogin', 'Selamat Datang Di Pyarr');
             }
 
         } else {
@@ -97,13 +97,10 @@ class AuthController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-
         if (!$user) {
             return response()->json(['message' => 'User not found'], 404);
         }
-
         $user->delete();
-
         return response()->json(['message' => 'User deleted successfully']);
     }
 }

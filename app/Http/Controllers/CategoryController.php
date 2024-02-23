@@ -7,7 +7,7 @@ use App\Models\CategoryModel;
 
 class CategoryController extends Controller
 {
-    function categoryPage()
+    public function categoryPage()
     {
         $kategoris = CategoryModel::latest()->get();
         return view('category.categoryPage', compact(['kategoris']));
@@ -22,7 +22,7 @@ class CategoryController extends Controller
     {
         CategoryModel::create($request->all());
         $categoryPiring = CategoryModel::where('category_id', $request->category_id);
-        
+
         $categoryData = $categoryPiring->first();
         $categoryID = $categoryData->id;
         $categoryData->category_id = $categoryID;
@@ -32,7 +32,7 @@ class CategoryController extends Controller
         } else {
             dd("data tidak ditemukan");
         }
-        return redirect()->back();
+        return redirect()->back()->with("tambahKategori", "Kategori berhasil ditambahkan");
     }
 
     public function edit_page($slug)
@@ -45,12 +45,12 @@ class CategoryController extends Controller
         $editKategori = CategoryModel::where('slug', $slug)->first();
         $editKategori->update($request->all());
 
-        return redirect('/show-category');
+        return redirect('/show-category')->with("updateKategori", "Kategori berhasil diubah");
     }
 
     public function delete_store($slug)
     {
         CategoryModel::where('slug', $slug)->first()->delete();
-        return redirect()->back();
+        return redirect()->back()->with("hapusKategori", "Kategori berhasil dihapus");
     }
 }

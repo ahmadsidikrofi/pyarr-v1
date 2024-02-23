@@ -54,12 +54,24 @@
                                                 <input type="text" class="form-control" name="harga_sewa" value="{{ $editPiring->harga_sewa }}">
                                             </div>
 
-                                            <div class="mb-3 mt-5">
+                                            {{-- <div class="mb-3 mt-5">
                                                 <label class="mb-3 text-primary">Foto piring</label>
                                                 <input type="file" class="form-control" name="image">
-                                            </div>
+                                            </div> --}}
+                                            @if ($editPiring->image === null)
+                                                <div class="text-center">
+                                                    <img id="image" class="rounded-4" src="https://kodfun.github.io/Reels/ImagePreview/choose.png" height="200">
+                                                    <input type="file" id="input" name="image" value="{{ $editPiring->image }}" class="form-control mt-2 bg-success text-white border-0">
+                                                </div>
+                                            @else
+                                                <div class="d-block">
+                                                    <img id="image" class="rounded-4" src="/assets/images/{{ $editPiring->image }}" height="200">
+                                                </div>
+                                                <input type="file" style="display: none;" id="input" name="image" value="{{ $editPiring->image }}" class="form-control mt-2 bg-success text-white border-0">
+                                                <label class="btn btn-dark rounded-3" for="input">Beri / Ubah foto piring</label>
+                                            @endif
 
-                                            <button class="btn btn-success btn-md my-4" type="submit">Simpan perubahan piring</button>
+                                            <button class="btn btn-success btn-md my-4 mx-3 rounded-3" type="submit">Simpan perubahan piring</button>
                                         </form>
                                     </div>
                                 </div>
@@ -84,5 +96,13 @@
       plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
       toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
     });
+</script>
+<script>
+    let image = document.getElementById("image");
+    let input = document.getElementById("input");
+
+    input.onchange = (e) => {
+    if (input.files[0]) image.src = URL.createObjectURL(input.files[0]);
+    };
 </script>
 @endsection

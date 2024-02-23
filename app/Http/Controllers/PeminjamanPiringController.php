@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PeminjamanModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Models\PeminjamanModel;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PeminjamanPiringController extends Controller
 {
@@ -72,19 +73,30 @@ class PeminjamanPiringController extends Controller
         }, 0);
 
         return view('user.riwayat-pinjam', compact('peminjamanPirings', 'totalHarga'));
-
     }
 
     public function showRiwayatPinjamUser()
     {
         $user = auth()->user();
         $piringUser = PeminjamanModel::with('piring_catalogue')->where('user_id', $user->id)->latest()->get();
+        // Inisialisasi sebagai array di luar loop
+        $sisaHari = null;
+        $sisaJam = null;
         foreach ($piringUser as $piring) {
             $sisaWaktu = Carbon::now()->diff($piring->return_date);
             $sisaHari = $sisaWaktu->days;
             $sisaJam = $sisaWaktu->h;
+            if ($sisaHari === "Undefined" || $sisaJam === "Undefined") {
+                return redirect('/');
+            }
         }
-        return view('user.piringTerpinjam', compact(['piringUser', 'sisaHari', 'sisaJam']));
+        $userId = Auth::id();
+        $totalPinjam = PeminjamanModel::where('user_id', $userId)
+        ->where(function ($query) {
+            $query->where('status', 'Sedang Dipinjam')
+                ->orWhere('status', 'Tersedia');
+        })->count();
+        return view('user.piringTerpinjam', compact(['piringUser', 'sisaHari', 'sisaJam', 'totalPinjam']));
     }
 
     public function kembalikanPiringUser(Request $request, $id)

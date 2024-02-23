@@ -6,6 +6,7 @@
 <!-- MDB -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 <style>
     input[readonly] {
@@ -69,7 +70,7 @@
                                 @if (Auth::user()->profile_pic == null)
                                 <div class="img-wrap">
                                     <span class="close">
-                                        <a href="/Readteracy/account/{{ Auth::user()->id }}/delete/profile-picture">
+                                        <a href="/profile-pic/{{ Auth::user()->id }}/delete">
                                             <i class="bi bi-trash2"
                                                 style="font-size: 1.5rem; color: rgb(255, 255, 255);">
                                             </i>
@@ -82,7 +83,7 @@
                                 @else
                                 <div class="img-wrap">
                                     <span class="close">
-                                        <a href="/Readteracy/account/{{ Auth::user()->id }}/delete/profile-picture">
+                                        <a href="/profile-pic/{{ Auth::user()->id }}/delete">
                                             <i class="bi bi-trash3"
                                                 style="font-size: 1.5rem; color: rgb(255, 255, 255);"></i>
                                         </a>
@@ -244,6 +245,14 @@
     <script src="/js/aos.js"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/plugins/ijabocrop/ijaboCropTool.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+        @if (Session::has('profilePicDelete'))
+            toastr.success("Gambar profile berhasil dihapus📛")
+        @endif
+    </script>
+
     <script>
         AOS.init({
             duration: 800, // values from 0 to 3000, with step 50ms

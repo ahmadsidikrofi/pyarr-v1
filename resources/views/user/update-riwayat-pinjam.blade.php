@@ -41,7 +41,11 @@
                                         <tr class="{{ $peminjaman->actual_return_date === NULL ? '' :
                                             ($peminjaman->return_date < $peminjaman->actual_return_date ? 'bg-danger text-light' : 'bg-success text-light') }}">
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $peminjaman->user->username }}</td>
+                                            @if ($peminjaman->user)
+                                                <td>{{ $peminjaman->user->username }}</td>
+                                            @else
+                                                <td>User tidak ditemukan</td>
+                                            @endif
                                             <td>{{ $peminjaman->piring_catalogue->nama_piring }}</td>
                                             <td>
                                                 <form action="/update-status-peminjaman/{{ $peminjaman->id }}"

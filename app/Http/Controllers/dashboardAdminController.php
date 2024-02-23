@@ -26,9 +26,7 @@ class dashboardAdminController extends Controller
             'email' => 'required|email|unique:users,email',
             'username' => 'required',
             'password' => 'required|min:6',
-            // Tambahkan aturan validasi lainnya sesuai kebutuhan
         ]);
-
         // Membuat user baru
         $user = new User([
             'email' => $request->email,
@@ -40,10 +38,8 @@ class dashboardAdminController extends Controller
             // 'profile_pic' => $request->profile_pic, // Menghandle upload file jika diperlukan
             'is_admin' => $request->is_admin, // Penetapan apakah user adalah admin
         ]);
-
         // Simpan user ke database
         $user->save();
-
         // Redirect ke halaman yang diinginkan dengan pesan sukses
         return redirect()->route('admin.listuser')->with('success', 'User berhasil ditambahkan.');
     }

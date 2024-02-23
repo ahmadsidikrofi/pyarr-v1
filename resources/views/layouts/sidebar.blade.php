@@ -29,6 +29,7 @@
                         <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
+                {{-- @if (auth()->user()->is_admin === 0 && $totalPinjam >= 1) --}}
                 @if (auth()->user()->is_admin === 0)
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/piring-terpinjam" aria-expanded="false">
@@ -99,11 +100,11 @@
                     <span class="hide-menu">AUTH</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/login" aria-expanded="false">
+                    <a class="sidebar-link" href="/logout" aria-expanded="false">
                         <span>
                             <i class="ti ti-login"></i>
                         </span>
-                        <span class="hide-menu">Login</span>
+                        <span class="hide-menu">Logout</span>
                     </a>
                 </li>
                 {{-- <li class="sidebar-item">

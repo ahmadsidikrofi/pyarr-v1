@@ -4,6 +4,8 @@ use App\Models\AuthModel;
 use App\Models\PiringModel;
 use Illuminate\Http\Request;
 use App\Models\CategoryModel;
+use App\Models\PeminjamanModel;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PiringController;
@@ -24,15 +26,23 @@ use App\Http\Controllers\PeminjamanPiringController;
  */
 
 Route::get('/', function (Request $request) {
+    $userId = Auth::id();
     $allUsers = AuthModel::latest()->get();
     $adminCount = AuthModel::where('is_admin', true)->count();
     $nonAdminCount = AuthModel::where('is_admin', false)->count();
     $totalPiring = PiringModel::count();
     $totalKategori = CategoryModel::count();
     $allPiring = PiringModel::latest()->filter(['search' => $request->search])->paginate(10);
+
+    $totalPinjam = PeminjamanModel::where('user_id', $userId)
+    ->where(function ($query) {
+        $query->where('status', 'Sedang Dipinjam')
+            ->orWhere('status', 'Tersedia');
+    })->count();
+
     return view('dashboard', compact([
         'allUsers', 'adminCount', 'nonAdminCount',
-        'allPiring', 'totalPiring', 'totalKategori'
+        'allPiring', 'totalPiring', 'totalKategori', 'totalPinjam'
     ]));
 })->middleware('auth');
 
@@ -58,6 +68,7 @@ Route::put('/update-user/{id}', [DashboardAdminController::class, 'update'])->na
 Route::get('/profile', [ProfileController::class, "profilePage"])->middleware('auth');
 Route::put('/profile/update', [ProfileController::class, "profileUpdate_store"]);
 Route::post('/profile/{id}/profile-picture', [ProfileController::class, "profileUpdate_pic"]);
+Route::get('/profile-pic/{id}/delete', [ProfileController::class, "profileDelete_pic"]);
 
 // Kategori
 Route::get('/show-category', [CategoryController::class, "categoryPage"]);

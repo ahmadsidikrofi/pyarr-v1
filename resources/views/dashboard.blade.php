@@ -1,6 +1,7 @@
 @extends('layouts.setup')
 
 @section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <!--  Body Wrapper -->
 <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
 	data-sidebar-position="fixed" data-header-position="fixed">
@@ -74,4 +75,27 @@
 		</div>
 	</div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script>
+    @if (Session::has('berhasilLogin'))
+        toastr.success("Selamat Datang Di BNSP Mahasiswa📖")
+    @endif
+</script>
+<script>
+    @if (Session::has('tambahPiring'))
+        toastr.success("Piring berhasil ditambahkan 🍽️🍽️")
+    @endif
+</script>
+<script>
+    @if (Session::has('editPiring'))
+        toastr.success("Piring berhasil diubah 🍽️🍽️")
+    @endif
+</script>
+<script>
+    @if (Session::has('hapusPiring'))
+        toastr.warning("Piring berhasil dihapus 🍽️🍽️")
+    @endif
+</script>
 @endsection

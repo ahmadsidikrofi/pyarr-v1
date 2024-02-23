@@ -4,6 +4,7 @@
 
 @include('layouts.sidebar')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <div class="body-wrapper">
     @include('layouts.header')
     <div class="container-fluid">
@@ -35,4 +36,13 @@
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script>
+    @if (Session::has('tambahKategori'))
+        toastr.success("Kategori berhasil ditambahkan📖")
+    @endif
+</script>
 @endsection

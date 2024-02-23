@@ -3,7 +3,6 @@
 @section('content')
 
 @include('layouts.sidebar')
-
 <div class="body-wrapper">
     @include('layouts.header')
     <div class="container-fluid">
@@ -36,4 +35,5 @@
         </div>
     </div>
 </div>
+
 @endsection

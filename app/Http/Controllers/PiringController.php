@@ -19,6 +19,12 @@ class PiringController extends Controller
 
     public function createPiring_store( Request $request )
     {
+        $request->validate([
+            'nama_piring' => 'required',
+            'deskripsi_piring' => 'required',
+            'harga_sewa' => 'required',
+            'image' => 'required',
+        ]);
         $piringBaru = PiringModel::create($request->except('category'));
         $piringBaru->categories()->sync($request->category);
 
@@ -37,7 +43,7 @@ class PiringController extends Controller
             $piringBaru -> image = $request -> file("image")->getClientOriginalName();
             $piringBaru -> save();
         }
-        return redirect()->back();
+        return redirect('/')->with("tambahPiring", "berhasil tambah piring");
     }
 
     public function editPiring_page($slug)
@@ -60,13 +66,13 @@ class PiringController extends Controller
             $editPiring -> image = $request -> file("image")->getClientOriginalName();
             $editPiring -> save();
         }
-        return redirect('/');
+        return redirect('/')->with("editPiring", "berhasil edit piring");
     }
 
     public function deletePiring($slug)
     {
         PiringModel::where('slug', $slug)->first()->delete();
-        return redirect()->back();
+        return redirect()->back()->with("hapusPiring", "Piring berhasil dihapus");
     }
 
     // Detail Piring (user/ member)

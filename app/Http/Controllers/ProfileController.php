@@ -7,6 +7,7 @@ use App\Models\PeminjamanModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class ProfileController extends Controller
 {
@@ -56,5 +57,21 @@ class ProfileController extends Controller
             $profile->save();
         }
         return redirect()->back()->with('profileUpdate', 'Profile Kamu Sukses Di Update');
+    }
+
+    public function profileDelete_pic($id)
+    {
+        $user = AuthModel::find($id);
+        $img_path = public_path().'/assets/images/profile/'.$user->image;
+
+        if (File::exists($img_path)) {
+            File::delete($img_path);
+
+            $user->update([
+                'profile_pic' => null,
+            ]);
+        }
+        return redirect()->back()->with("profilePicDelete", "Foto Profile dihapus");
+
     }
 }
